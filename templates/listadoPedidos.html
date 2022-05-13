@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pedidos</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='ingwebstyle.css')}}">
+    </head>
+
+    <body>
+        <h2 class="whiteColor">Hola {{g.user.nombre}} ({{g.user.rol}})</h2>
+        <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
+        <h2 class="whiteColor">ID {{g.user.ID}}</h2>
+
+        <div class="container">
+        <table border=1>
+            <tr>
+                <th>Nº Pedido</th>
+                <th>DNI Pciente</th>
+                <th>Nº Habitación</th>
+                <th>ID medicamento</th>
+                <th>ID Médico</th>
+                <th>Estado</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
+            </tr>
+            {% for pedido in pedidos %}
+            <tr>
+                
+                <td>{{pedido.numPedido}}</td>
+                <td>{{pedido.dniPaciente}}</td>
+                <td>{{pedido.numHabitacion}}</td>
+                <td>{{pedido.IDmedicamento}}</td>
+                <td>{{pedido.IDusuario}}</td>
+                <td>{{pedido.estado}}</td>   
+                <td><button type="button" onclick="location.href='/listadoPedidos/{{pedido.ID}}';" class="btn btn-success">Modificar</button></td>
+                <td><button type="button" onclick="location.href='/borrarPedido/{{pedido.ID}}';" class="btn btn-danger">Eliminar</button></td>          
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </body>
+
+</html>

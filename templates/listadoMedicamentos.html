@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Medicamentos</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='ingwebstyle.css')}}">
+    </head>
+
+    <body>
+        <h2 class="whiteColor">Hola {{g.user.nombre}} ({{g.user.rol}})</h2>
+        <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
+        <h2 class="whiteColor">ID {{g.user.ID}}</h2>
+
+        <div class="container">
+            <button type="button" onclick="location.href='/hacerPedido';" class="btn btn-success">Realizar Pedido</button>
+        <table border=1>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Principio Activo</th>
+                <th>Cantidad</th>
+                <th>Prescripción Médica</th>
+                <th>Indicaciones</th>
+                <th>Via Administración</th>
+                <th>Stock</th>
+
+            </tr>
+            {% for medicamento in medicamentos %}
+            <tr>
+                
+                <td>{{medicamento.ID}}</td>
+                <td>{{medicamento.nombre}}</td>
+                <td>{{medicamento.laboratorio}}</td>
+                <td>{{medicamento.viaAdministracion}}</td>
+                <td>{{medicamento.dosis}}</td>
+                <td>{{medicamento.principioActivo}}</td>
+                <td>{{medicamento.prescripcionMedica}}</td>
+                <td>{{medicamento.stock}}</td>              
+            </tr>
+            
+            {% endfor %}
+        </table>
+    </div>
+    </body>
+
+</html>

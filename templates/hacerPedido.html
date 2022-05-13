@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Actualizar</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='ingwebstyle.css')}}">
+    </head>
+
+    <body>
+        <h2 class="blackColor">Realizar pedido</h2>
+        <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <h2 class="blackColor">{{msg}}</h2>
+                {% endfor %}
+            {%endif %}
+        {% endwith %}
+
+        <form  method="post">
+        
+             {%if g.user.rol=='medico'%}
+            <div class="form-group row">
+              <label for="formGroupExampleInput2" >Médico: {{g.user.nombre}}</label>
+            </div>
+            <div class="form-group row"> 
+              <label for="formGroupExampleInput2" >Dni Paciente:</label>
+              <input type="text" id="paciente" name="paciente" required minlength="4" maxlength="8" size="10">
+            </div>
+            <div class="form-group row">
+              <label for="formGroupExampleInput2" >Número de habitación:</label>
+              <input type="text" id="hab" name="hab" required minlength="4" maxlength="8" size="10">
+            </div>
+
+            <div class="form-group row">
+                <select style="width:50%;" class="form-control" id="inlineFormCustomSelectPref" name="idmedicamento" required>
+                 <label for="formGroupExampleInput2" >Medicamento:</label>
+                 <option selected>Elija el medicamento:</option>
+                 {%for medicamento in medicamentos%}
+                <option value="{{medicamento.ID}}">{{medicamento.nombre}}</option>
+                {%endfor%}
+                </select>
+              </div>
+              
+            <div>
+                <input type="submit" formmethod="post" onclick="location.href='/hacerPedido/{{g.user.ID}}';" class="btn btn-info"  value="Añadir">
+            
+            </div>
+            {%endif%}
+        
+          </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hola</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='ingwebstyle.css')}}">
+    
+       
+    </head>
+
+    <body>
+        <h2 class="balckColor">Bienvenido {{g.user.nombre}} ({{g.user.rol}})</h2>
+        <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
+        <h2 class="blackColor">ID {{g.user.ID}}</h2>
+
+        
+    <div class="container" style="margin-top: 100px;">
+        <div class="row image-grid">
+            {% if g.user.rol=='farmacia'%}
+            <div class="col-sm-4 col-md-4">
+                <div class="panel panel-default">
+                    <div>
+                        <a href="http://127.0.0.1:5000/listadoMedicamentos" target="_blank">
+                            <img alt="" class="imagencita center-block" src="http://127.0.0.1:5000/static/images/medicamentos.jpg" width="200" height="200">
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="color:#036d4a";>Listado de medicamentos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="panel panel-default">
+                    <div>
+                        <a href="http://127.0.0.1:5000/listadoPedidos" target="_blank">
+                            <img alt="" class="imagencita center-block" src="http://127.0.0.1:5000/static/images/pedidos.png" width="200" height="200">
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="color:#036d4a";>Ver pedidos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="http://127.0.0.1:5000/verconsejoMedico/{{g.user.ID}}" target="_blank">
+                            <img alt="" class="img-responsive center-block" src="http://127.0.0.1:5000/static/images/consejo_medico_icono.jpg"width="200" height="200">
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="color:#036d4a";>Consejo Médico</p>
+                    </div>
+                </div>
+            </div>
+            
+            {%endif%}
+            {%if g.user.rol=='medico'%}
+            <div class="col-sm-4 col-md-4">
+                <div class="panel panel-default">
+                    <div>
+                        <a href="http://127.0.0.1:5000/listadoMedicamentos" target="_blank">
+                            <img alt="" class="imagencita center-block" src="http://127.0.0.1:5000/static/images/medicamentos.jpg" width="200" height="200">
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="color:#036d4a";>Listado de medicamentos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="http://127.0.0.1:5000/cita" target="_blank">
+                            <img alt="" class="img-responsive center-block" src="http://127.0.0.1:5000/static/images/icono_cita.jpg" width="200" height="200">
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="color:#036d4a";>Cita</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="http://127.0.0.1:5000/verconsejoMedicoMed/{{g.user.ID}}" target="_blank">
+                            <img alt="" class="img-responsive center-block" src="http://127.0.0.1:5000/static/images/consejo_medico_icono.jpg"width="200" height="200">
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p style="color:#036d4a";>Consejo Médico</p>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+  </div>
+    </body>
+</html>
+   
