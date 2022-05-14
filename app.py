@@ -33,7 +33,7 @@ class usuarioM(db.Model):
 class pedido(db.Model):
     __tablename__ = "pedido"
     numPedido=db.Column(db.Integer, primary_key=True,autoincrement=True)
-    dniPaciente=db.Column(db.String(9))
+    dniPaciente=db.Column(db.String(10))
     numHabitacion=db.Column(db.Integer)
     IDmedicamento=db.Column(db.Integer)
     IDusuario=db.Column(db.Integer)
@@ -42,11 +42,11 @@ class pedido(db.Model):
 class medicamento(db.Model):
     __tablename__ = "medicamento"
     ID=db.Column(db.Integer, primary_key=True,autoincrement=True)
-    nombre=db.Column(db.String(20))
-    laboratorio=db.Column(db.String(20))
-    viaAdministracion=db.Column(db.String(10))
-    dosis=db.Column(db.String(10))
-    principioActivo=db.Column(db.String(20))
+    nombre=db.Column(db.String(50))
+    laboratorio=db.Column(db.String(50))
+    viaAdministracion=db.Column(db.String(50))
+    dosis=db.Column(db.String(50))
+    principioActivo=db.Column(db.String(50))
     prescripcionMedica=db.Column(db.String(5))
     stock=db.Column(db.Integer)
 
@@ -123,7 +123,7 @@ def hacerPedido():
         db.session.add(hacerPedido)
         db.session.commit()
         flash("Pedido registrado correctamente!")
-        return redirect('/listadoMedicamentos')
+        return redirect('/listadoPedidos.html')
     except:
         "Algo ha ido mal!!"
 
@@ -134,8 +134,105 @@ def verListadoPedidos():
 
 @app.route('/listadoPedidos/<ID>' , methods=['GET'])
 def get(ID):
-    rpedido=pedido.query.filter_by(ID=ID)
-    return render_template('actualizarPedido.html',pedidos=rpedido)
+    rpedido=pedido.query.filter_by(numPedido=ID)
+    med=medicamento.query.all()
+    return render_template('actualizarPedido.html',pedidos=rpedido,medicamentos=med)
+
+@app.route('/actualizarPedido')
+def getact():
+    if g.user==None:
+        return redirect('/login')
+    med=medicamento.query.all()
+    return render_template('actualizarPedido.html',medicamentos=med)
+
+@app.route('/listadoPedidos/<ID>', methods=['POST'])
+def actualizarP(ID):
+    if g.user==None:
+        return redirect('/login')
+    updateP=pedido.query.get_or_404(ID)
+    updateP.dniPaciente=request.form['paciente']
+    updateP.numHabitacion=request.form['hab']
+    updateP.IDmedicamento=request.form.get('idmedicamento')
+    updateP.IDusuario= g.user.ID
+    updateP.estado=request.form['estado']
+    try:
+        db.session.commit()
+        flash("Pedido actualizado correctamente!")
+        return redirect('/listadoPedidos')
+    except:
+        "Algo ha ido mal!!"
+    
+@app.route('/borrarPedido/<ID>')
+def borrarpedido(ID):
+    if g.user==None:
+        return redirect('/login')
+    borrarP=pedido.query.get_or_404(ID) 
+    try:
+        db.session.delete(borrarP)
+        db.session.commit()
+        flash("El pedido ha sido eliminado correctamente!") 
+        return redirect('/listadoPedidos')
+    except: 
+        return "Algo ha ido mal!"
+
+@app.route('/nuevoMedicamento' , methods=['GET'])
+def addmed():
+    if g.user==None:
+        return redirect('/login')
+    return render_template('nuevoMedicamento.html')
+
+@app.route('/nuevoMedicamento' , methods=['POST'])
+def nuevoMed():
+    if g.user==None:
+        return redirect('/login')
+    rnombre=request.form['nombre']
+    rlab=request.form['lab']
+    rvia=request.form.get('via')
+    rdosis=request.form.get('dosis')
+    rpa=request.form.get('pa')
+    rpm=request.form.get('pm')
+    rstock=request.form.get('stock')
+    try:
+        med=medicamento(nombre=rnombre,laboratorio=rlab,viaAdministracion=rvia,dosis=rdosis,principioActivo=rpa,prescripcionMedica=rpm,stock=rstock)
+        db.session.add(med)
+        db.session.commit()
+        flash("Medicamento registrado correctamente!")
+        return redirect('/listadoMedicamentos.html')
+    except:
+        "Algo ha ido mal!!"
+
+@app.route('/actualizarMedicamento/<ID>' , methods=['GET'])
+def actmedget(ID):
+    if g.user==None:
+        return redirect('/login')
+    med=medicamento.query.filter_by(ID=ID)
+    return render_template('actualizarMedicamento.html', medicamentos=med)
+
+@app.route('/actualizarMedicamento/<ID>' , methods=['POST'])
+def actMed(ID):
+    if g.user==None:
+        return redirect('/login')
+    updateMed=medicamento.query.get_or_404(ID)
+    updateMed.nombre=request.form['nombre']
+    updateMed.laboratorio=request.form['lab']
+    updateMed.viaAdministracion=request.form['via']
+    updateMed.dosis=request.form['dosis']
+    updateMed.principioActivo=request.form['pa']
+    updateMed.prescripcionMedica=request.form['pm']
+    updateMed.stock=request.form['stock']
+    try:
+        db.session.commit()
+        flash("Medicamento actualizado correctamente!")
+        return redirect('/listadoMedicamentos')
+    except:
+        "Algo ha ido mal!!"
+    
+@app.route('/datosUsuario' , methods=['GET'])
+def datos():
+    if g.user==None:
+        return redirect('/login')
+    usu = usuarioM.query.filter_by(ID=g.user.ID)
+    return render_template('datosUsuario.html', usuario=usu)
 
 if __name__ == '__main__':
     app.run(debug=True)

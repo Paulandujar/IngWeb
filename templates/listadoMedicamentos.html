@@ -9,39 +9,80 @@
 
     <body>
         <h2 class="whiteColor">Hola {{g.user.nombre}} ({{g.user.rol}})</h2>
-        <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
+        <button type="button" onclick="location.href='/';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button>
+        <button type="button" onclick="location.href='/login';" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</button>
         <h2 class="whiteColor">ID {{g.user.ID}}</h2>
-
+        {%if g.user.rol=='medico'%}
         <div class="container">
             <button type="button" onclick="location.href='/hacerPedido';" class="btn btn-success">Realizar Pedido</button>
-        <table border=1>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Principio Activo</th>
-                <th>Cantidad</th>
-                <th>Prescripción Médica</th>
-                <th>Indicaciones</th>
-                <th>Via Administración</th>
-                <th>Stock</th>
-
-            </tr>
-            {% for medicamento in medicamentos %}
-            <tr>
+        <div/>
+        <div>
+            <table border=1>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Principio Activo</th>
+                    <th>Cantidad</th>
+                    <th>Prescripción Médica</th>
+                    <th>Indicaciones</th>
+                    <th>Via Administración</th>
+                    <th>Stock</th>
+    
+                </tr>
+                {% for medicamento in medicamentos %}
+                <tr>
+                    
+                    <td>{{medicamento.ID}}</td>
+                    <td>{{medicamento.nombre}}</td>
+                    <td>{{medicamento.laboratorio}}</td>
+                    <td>{{medicamento.viaAdministracion}}</td>
+                    <td>{{medicamento.dosis}}</td>
+                    <td>{{medicamento.principioActivo}}</td>
+                    <td>{{medicamento.prescripcionMedica}}</td>
+                    <td>{{medicamento.stock}}</td>              
+                </tr>
                 
-                <td>{{medicamento.ID}}</td>
-                <td>{{medicamento.nombre}}</td>
-                <td>{{medicamento.laboratorio}}</td>
-                <td>{{medicamento.viaAdministracion}}</td>
-                <td>{{medicamento.dosis}}</td>
-                <td>{{medicamento.principioActivo}}</td>
-                <td>{{medicamento.prescripcionMedica}}</td>
-                <td>{{medicamento.stock}}</td>              
-            </tr>
-            
-            {% endfor %}
-        </table>
-    </div>
+                {% endfor %}
+            </table>
+        </div>
+        {%endif%}
+        {%if g.user.rol=='farmacia'%}
+        <div class="container">
+            <button type="button" onclick="location.href='/nuevoMedicamento';" class="btn btn-success">Añadir Medicamento</button>
+        <div/>
+        <div>
+            <table border=1>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Principio Activo</th>
+                    <th>Cantidad</th>
+                    <th>Prescripción Médica</th>
+                    <th>Indicaciones</th>
+                    <th>Via Administración</th>
+                    <th>Stock</th>
+                    <th>Modificar</th>
+
+    
+                </tr>
+                {% for medicamento in medicamentos %}
+                <tr>
+                    
+                    <td>{{medicamento.ID}}</td>
+                    <td>{{medicamento.nombre}}</td>
+                    <td>{{medicamento.laboratorio}}</td>
+                    <td>{{medicamento.viaAdministracion}}</td>
+                    <td>{{medicamento.dosis}}</td>
+                    <td>{{medicamento.principioActivo}}</td>
+                    <td>{{medicamento.prescripcionMedica}}</td>
+                    <td>{{medicamento.stock}}</td> 
+                    <td><button type="button" onclick="location.href='/actualizarMedicamento/{{medicamento.ID}}';" class="btn btn-primary">Editar</button></td>             
+                </tr>
+                
+                {% endfor %}
+            </table>
+        </div>
+        {%endif%}
     </body>
 
 </html>

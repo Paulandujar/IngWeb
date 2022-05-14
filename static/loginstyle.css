@@ -5,30 +5,10 @@
     box-sizing: border-box;
   }
   
-  header {
-    background-color: #8D5A97;
- }
- header div#barra-superior {
-    padding: 1em 2em;
-}
-
-nav#menu-superior {
-    position: absolute;
-    right: 0;
-    top: 1em;
-    margin-right: 1em;
-}
-nav ul {
-    list-style: none;
-}
-nav#menu-superior ul li {
-    display: inline;
-}
-
   body {
-    color:#000000;
-    background-color: #EEC2D9;
-    font-family: Verdana;
+    color:#767C7F;
+    background: url(http://127.0.0.1:5000/static/images/fondo.jpg);
+    font-family: 'Open Sans', sans-serif;
   }
   .container {
     /*padding-top: 50px;
@@ -49,8 +29,8 @@ nav#menu-superior ul li {
   .btn-secondary{
       position: absolute;
       right: 50px;
-      background-color: #A4A5AE;
-      border-color: #A4A5AE;
+      background-color: #85de5b;
+      border-color: #c4da46;
       color: #fff;
   }
      

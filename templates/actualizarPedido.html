@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Actualizar</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='ingwebstyle.css')}}">
+    </head>
+
+    <body>
+        <h2 class="blackColor">Actualizar pedido</h2>
+        <button type="button" onclick="location.href='/listadoPedidos';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button>
+        <button type="button" onclick="location.href='/login';" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</button>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <h2 class="blackColor">{{msg}}</h2>
+                {% endfor %}
+            {%endif %}
+        {% endwith %}
+
+        <form  method="post">
+        
+             {%if g.user.rol=='medico'%}
+                {% for pedido in pedidos %}
+                    <div class="form-group row">
+                    <label for="formGroupExampleInput2" >Médico: {{g.user.nombre}}</label>
+                    </div>
+                    <div class="form-group row"> 
+                    <label for="formGroupExampleInput2" >Número de pedido: {{pedido.numPedido}}</label>
+                    </div>
+                    <div class="form-group row"> 
+                    <label for="formGroupExampleInput2" >Dni Paciente:</label>
+                    <input type="text" id="paciente" name="paciente" size="10" value="{{pedido.dniPaciente}}">
+                    </div>
+                    <div class="form-group row">
+                    <label for="formGroupExampleInput2" >Número de habitación:</label>
+                    <input type="text" id="hab" name="hab" size="10" value="{{pedido.numHabitacion}}">
+                    </div>
+                    <div class="form-group row">
+                    <label for="formGroupExampleInput2" >Estado: {{pedido.estado}}</label>
+                    <input type="text" id="estado" name="estado" size="10" value="{{pedido.estado}}" readonly>
+                    </div>
+                    <div class="form-group row">
+                        <label for="formGroupExampleInput2" >Medicamento: </label>
+                        <select style="width:50%;" class="form-control" id="inlineFormCustomSelectPref" name="idmedicamento" required>
+                         {%for medicamento in medicamentos%}
+                        <option value="{{medicamento.ID}}">{{medicamento.nombre}}</option>
+                        {%endfor%}
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <input type="submit" formmethod="post" class="btn btn-info"  value="Actualizar">
+                    
+                    </div>
+                {% endfor %}
+            {%endif%}
+            {%if g.user.rol=='farmacia'%}
+            {% for pedido in pedidos %}
+                    <div class="form-group row">
+                    <label for="formGroupExampleInput2" >Pedido realizado por: {{g.user.nombre}}</label>
+                    </div>
+                    <div class="form-group row"> 
+                    <label for="formGroupExampleInput2" >Número de pedido: {{pedido.numPedido}}</label>
+                    </div>
+                    <div class="form-group row"> 
+                    <label for="formGroupExampleInput2" >Dni Paciente: </label>
+                    <input type="text" id="paciente" name="paciente" size="10" value="{{pedido.dniPaciente}}" readonly>
+                    </div>
+                    <div class="form-group row">
+                    <label for="formGroupExampleInput2" >Número de habitación: </label>
+                    <input type="text" id="hab" name="hab" size="10" value="{{pedido.numHabitacion}}" readonly>
+                    </div>
+                    <div class="form-group row">
+                    <label for="formGroupExampleInput2" >ID Medicamento:</label>
+                    <input type="text" id="idmedicamento" name="idmedicamento" size="10" value="{{pedido.idmedicamento}}" readonly>
+                    </div>
+                    <div class="form-group row">
+                        <label for="formGroupExampleInput2" >Estado: </label>
+                        <select style="width:50%;" class="form-control" id="inlineFormCustomSelectPref" name="estado" required>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En proceso">En proceso</option>
+                        <option value="Enviado">Enviado</option>
+                        <option value="Completado">Completado</option>
+                        <option value="Rechazado">Rechazado</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <input type="submit" formmethod="post" class="btn btn-info" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" value="Actualizar">
+                    </div>
+                {% endfor %}
+            {%endif%}
+        
+          </form>
+        </div>
+    </body>
+</html>

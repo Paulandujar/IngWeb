@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Medicamento</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='ingwebstyle.css')}}">
+    </head>
+
+    <body>
+        <h2 class="blackColor">Modificar Medicamento</h2>
+        <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <h2 class="blackColor">{{msg}}</h2>
+                {% endfor %}
+            {%endif %}
+        {% endwith %}
+
+        <form  method="post">
+            {% for medicamento in medicamentos %}
+            <div class="form-group row"> 
+              <label for="formGroupExampleInput2" >Nombre:</label>
+              <input type="text" id="nombre" name="nombre" size="40" value="{{medicamento.nombre}}">
+            </div>
+            <div class="form-group row">
+              <label for="formGroupExampleInput2" >Laboratorio:</label>
+              <input type="text" id="lab" name="lab" size="40" value="{{medicamento.laboratorio}}">
+            </div>
+            <div class="form-group row">
+                <label for="formGroupExampleInput2" >Vía de administración:</label>
+                <input type="text" id="via" name="via" size="40" value="{{medicamento.viaAdministracion}}">
+            </div>
+            <div class="form-group row">
+                <label for="formGroupExampleInput2" >Dosis:</label>
+                <input type="text" id="dosis" name="dosis" size="40" value="{{medicamento.dosis}}">
+            </div>
+            <div class="form-group row">
+                <label for="formGroupExampleInput2" >Principio Activo:</label>
+                <input type="text" id="pa" name="pa" size="40" value="{{medicamento.principioActivo}}">
+            </div>
+            <div class="form-group row">
+                <label for="formGroupExampleInput2" >Prescripción Médica:</label>
+                <input type="text" id="pm" name="pm" size="10" value="{{medicamento.prescripcionMedica}}">
+            </div>
+            <div class="form-group row">
+                <label for="formGroupExampleInput2" >Stock:</label>
+                <input type="text" id="stock" name="stock"size="10" value="{{medicamento.stock}}">
+            </div>
+            {% endfor %}
+            <div>
+                <input type="submit" formmethod="post" onclick="location.href='/listadoMedicamentos';" class="btn btn-info"  value="Añadir">
+            
+            </div>       
+          </form>
+        </div>
+    </body>
+</html>
