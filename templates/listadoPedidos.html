@@ -9,12 +9,29 @@
     </head>
 
     <body>
-        <h2 class="whiteColor">Hola {{g.user.nombre}} ({{g.user.rol}})</h2>
-        <button type="button" onclick="location.href='/';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button>
-        <button type="button" onclick="location.href='/login';" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</button>
-        <h2 class="whiteColor">ID {{g.user.ID}}</h2>
+        <header>
+            <div id="barra-superior">
+                <div id="logo">
+                    <img alt="" class="imagencita center-block" src="http://127.0.0.1:5000/static/images/logo1.png" width="50" height="50">
+                </div>
+                <nav id="menu-superior">
+                    <ul>
+                        <li><button type="button" onclick="location.href='/';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button></li>
+                        <li><button type="button" onclick="location.href='/login';" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <h2 class="blackColor">Listado de Pedidos</h2>
         {%if g.user.rol=='medico'%}
         <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <h2 class="blackColor">{{msg}}</h2>
+                {% endfor %}
+            {%endif %}
+        {% endwith %}
         <table border=1>
             <tr>
                 <th>Nº Pedido</th>
@@ -35,8 +52,8 @@
                 <td>{{pedido.IDmedicamento}}</td>
                 <td>{{pedido.IDusuario}}</td>
                 <td>{{pedido.estado}}</td>   
-                <td><button type="button" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" class="btn btn-success">Modificar</button></td>
-                <td><button type="button" onclick="location.href='/borrarPedido/{{pedido.numPedido}}';" class="btn btn-danger">Eliminar</button></td>          
+                <td><button type="button" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" class="btn btn-1">Modificar</button></td>
+                <td><button type="button" onclick="location.href='/borrarPedido/{{pedido.numPedido}}';" class="btn btn-2">Eliminar</button></td>          
             </tr>
             {% endfor %}
         </table>
@@ -63,7 +80,7 @@
                     <td>{{pedido.IDmedicamento}}</td>
                     <td>{{pedido.IDusuario}}</td>
                     <td>{{pedido.estado}}</td>   
-                    <td><button type="button" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" class="btn btn-success">Actualizar Estado</button></td>          
+                    <td><button type="button" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" class="btn btn-1">Actualizar Estado</button></td>          
                 </tr>
                 {% endfor %}
             </table>
