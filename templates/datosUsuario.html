@@ -8,10 +8,21 @@
     </head>
 
     <body>
+        <header>
+            <div id="barra-superior">
+                <div id="logo">
+                    <img alt="" class="imagencita center-block" src="http://127.0.0.1:5000/static/images/logo1.png" width="50" height="50">
+                </div>
+                <nav id="menu-superior">
+                    <ul>
+                        <li><button type="button" onclick="location.href='/';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button></li>
+                        <li><button type="button" onclick="location.href='/login';" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
         <h2 class="blackColor">Datos personales</h2>
-        <button type="button" onclick="location.href='/listadoPedidos';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button>
-        <button type="button" onclick="location.href='/login';" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</button>
-        <div class="container">
+        <div class="container" style="margin-top:70px;">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for msg in messages %}
@@ -23,42 +34,34 @@
         <form  method="post">
             {% for usuario in usuarios %}
             <div class="form-group row">
-            <label for="formGroupExampleInput2" >Médico: {{g.user.nombre}}</label>
-            <input type="text" id="nombre" name="nombre" size="10" value="{{usuario}}">
+            <label for="formGroupExampleInput2" >ID usuario: {{usuario.ID}}</label>
+            </div>
+            <div class="form-group row">
+            <label for="formGroupExampleInput2" >Nombre: </label>
+            <input type="text" id="nombre" name="nombre" size="30" value="{{usuario.nombre}}">
+            </div>
+            <div class="form-group row">
+                <label for="formGroupExampleInput2" >Usuario: </label>
+                <input type="text" id="usu" name="usu" size="30" value="{{usuario.usuario}}">
+                </div>
+            <div class="form-group row"> 
+            <label for="formGroupExampleInput2" >Rol: </label>
+            <input type="text" id="rol" name="rol" size="10" value="{{usuario.rol}}">
             </div>
             <div class="form-group row"> 
-            <label for="formGroupExampleInput2" >Número de pedido: {{pedido.numPedido}}</label>
+            <label for="formGroupExampleInput2" >Teléfono de contacto:</label>
+            <input type="text" id="tel" name="tel" size="10" value="{{usuario.telefono}}">
             </div>
             <div class="form-group row"> 
-            <label for="formGroupExampleInput2" >Dni Paciente:</label>
-            <input type="text" id="paciente" name="paciente" size="10" value="{{pedido.dniPaciente}}">
-            </div>
-            <div class="form-group row">
-            <label for="formGroupExampleInput2" >Número de habitación:</label>
-            <input type="text" id="hab" name="hab" size="10" value="{{pedido.numHabitacion}}">
-            </div>
-            <div class="form-group row">
-            <label for="formGroupExampleInput2" >Estado: {{pedido.estado}}</label>
-            <input type="text" id="estado" name="estado" size="10" value="{{pedido.estado}}" readonly>
-            </div>
-            <div class="form-group row">
-                <label for="formGroupExampleInput2" >Medicamento: </label>
-                <select style="width:50%;" class="form-control" id="inlineFormCustomSelectPref" name="idmedicamento" required>
-                    {%for medicamento in medicamentos%}
-                <option value="{{medicamento.ID}}">{{medicamento.nombre}}</option>
-                {%endfor%}
-                </select>
-            </div>
+                <label for="formGroupExampleInput2" >Nueva Contraseña:</label>
+                <input type="password" id="pass" name="pass" size="20">
+                </div>
             
             <div>
                 <input type="submit" formmethod="post" class="btn btn-info"  value="Actualizar">
             
             </div>
-            
-            <div>
-                <input type="submit" formmethod="post" class="btn btn-info" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" value="Actualizar">
-            </div>
-        
+            {% endfor %}
           </form>
         </div>
     </body>

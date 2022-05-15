@@ -158,7 +158,7 @@ def actualizarP(ID):
     try:
         db.session.commit()
         flash("Pedido actualizado correctamente!")
-        return redirect('/listadoPedidos')
+        return render_template('actualizarPedido.html')
     except:
         "Algo ha ido mal!!"
     
@@ -171,7 +171,7 @@ def borrarpedido(ID):
         db.session.delete(borrarP)
         db.session.commit()
         flash("El pedido ha sido eliminado correctamente!") 
-        return redirect('/listadoPedidos')
+        return render_template('listadoPedidos.html')
     except: 
         return "Algo ha ido mal!"
 
@@ -197,7 +197,7 @@ def nuevoMed():
         db.session.add(med)
         db.session.commit()
         flash("Medicamento registrado correctamente!")
-        return redirect('/listadoMedicamentos.html')
+        return render_template('nuevoMedicamento.html')
     except:
         "Algo ha ido mal!!"
 
@@ -223,16 +223,34 @@ def actMed(ID):
     try:
         db.session.commit()
         flash("Medicamento actualizado correctamente!")
-        return redirect('/listadoMedicamentos')
+        return render_template('actualizarMedicamento.html')
     except:
         "Algo ha ido mal!!"
     
-@app.route('/datosUsuario' , methods=['GET'])
-def datos():
+@app.route('/datosUsuario/<ID>' , methods=['GET'])
+def datos(ID):
     if g.user==None:
         return redirect('/login')
-    usu = usuarioM.query.filter_by(ID=g.user.ID)
-    return render_template('datosUsuario.html', usuario=usu)
+    usu = usuarioM.query.filter_by(ID=ID)
+    return render_template('datosUsuario.html', usuarios=usu)
+
+@app.route('/datosUsuario/<ID>' , methods=['POST'])
+def actUsu(ID):
+    if g.user==None:
+        return redirect('/login')
+    updateUsu=usuarioM.query.get_or_404(ID)
+    updateUsu.rol=request.form['rol']
+    updateUsu.usu=request.form['usu']
+    updateUsu.nombre=request.form['nombre']
+    updateUsu.telefono=request.form['tel']
+    updateUsu.password=request.form['pass']
+    try:
+        db.session.commit()
+        flash("Usuario actualizado correctamente!")
+        return render_template('datosUsuario.html')
+    except:
+        "Algo ha ido mal!!"
+
 
 if __name__ == '__main__':
     app.run(debug=True)

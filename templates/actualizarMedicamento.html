@@ -8,9 +8,21 @@
     </head>
 
     <body>
+        <header>
+            <div id="barra-superior">
+                <div id="logo">
+                    <img alt="" class="imagencita center-block" src="http://127.0.0.1:5000/static/images/logo1.png" width="50" height="50">
+                </div>
+                <nav id="menu-superior">
+                    <ul>
+                        <li><button type="button" onclick="location.href='/listadoMedicamentos';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button></li>
+                        <li><button type="button" onclick="location.href='/login';" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</button></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
         <h2 class="blackColor">Modificar Medicamento</h2>
-        <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
-        <div class="container">
+        <div class="container" style="margin-top: 65px;">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for msg in messages %}
@@ -49,11 +61,11 @@
                 <label for="formGroupExampleInput2" >Stock:</label>
                 <input type="text" id="stock" name="stock"size="10" value="{{medicamento.stock}}">
             </div>
-            {% endfor %}
             <div>
-                <input type="submit" formmethod="post" onclick="location.href='/listadoMedicamentos';" class="btn btn-info"  value="Añadir">
+                <input type="submit" formmethod="post" class="btn btn-info"  value="Actualizar">
             
-            </div>       
+            </div>
+            {% endfor %}       
           </form>
         </div>
     </body>
