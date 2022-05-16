@@ -9,6 +9,7 @@
 
     <body>
         <h2 class="blackColor">Nuevo Medicamento</h2>
+        <button type="button" onclick="location.href='/';" class="btn btn-primary"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Atrás</button>
         <button type="button" onclick="location.href='/login';" class="btn btn-secondary"><i class="fa fa-sign-out"></i></i> Salir</button>
         <div class="container">
             {% with messages = get_flashed_messages() %}
@@ -22,7 +23,7 @@
         <form  method="post">
             <div class="form-group row"> 
               <label for="formGroupExampleInput2" >Nombre:</label>
-              <input type="text" id="nombre" name="nombre" size="40">
+              <input type="text" id="nombre" name="nombre" size="100">
             </div>
             <div class="form-group row">
               <label for="formGroupExampleInput2" >Laboratorio:</label>
