@@ -243,7 +243,8 @@ def actUsu(ID):
     updateUsu.usu=request.form['usu']
     updateUsu.nombre=request.form['nombre']
     updateUsu.telefono=request.form['tel']
-    updateUsu.password=request.form['pass']
+    if request.form['pass'] != "":
+        updateUsu.password=request.form['pass']
     try:
         db.session.commit()
         flash("Usuario actualizado correctamente!")
