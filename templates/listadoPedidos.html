@@ -24,11 +24,11 @@
         </header>
         <h2 class="blackColor">Listado de Pedidos</h2>
         {%if g.user.rol=='medico'%}
-        <div class="container">
+        <div class="container"style="margin-top: 30px;">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for msg in messages %}
-                    <h2 class="blackColor">{{msg}}</h2>
+                    <h2 class="success2">{{msg}}</h2>
                 {% endfor %}
             {%endif %}
         {% endwith %}
@@ -52,7 +52,7 @@
                 <td>{{pedido.IDmedicamento}}</td>
                 <td>{{pedido.IDusuario}}</td>
                 <td>{{pedido.estado}}</td>   
-                <td><button type="button" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" class="btn btn-1">Modificar</button></td>
+                <td><button type="button" onclick="location.href='/actualizarPedido/{{pedido.numPedido}}';" class="btn btn-1">Modificar</button></td>
                 <td><button type="button" onclick="location.href='/borrarPedido/{{pedido.numPedido}}';" class="btn btn-2">Eliminar</button></td>          
             </tr>
             {% endfor %}
@@ -80,7 +80,7 @@
                     <td>{{pedido.IDmedicamento}}</td>
                     <td>{{pedido.IDusuario}}</td>
                     <td>{{pedido.estado}}</td>   
-                    <td><button type="button" onclick="location.href='/listadoPedidos/{{pedido.numPedido}}';" class="btn btn-1">Actualizar Estado</button></td>          
+                    <td><button type="button" onclick="location.href='/actualizarPedido/{{pedido.numPedido}}';" class="btn btn-1">Actualizar Estado</button></td>          
                 </tr>
                 {% endfor %}
             </table>

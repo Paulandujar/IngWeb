@@ -90,6 +90,11 @@ nav#menu-superior ul li {
       color: #fff;
       
   }
+
+  form {
+    background-color: white;
+    padding-left: 30px;
+  }
      
   table {
     position: absolute;
@@ -145,10 +150,12 @@ nav#menu-superior ul li {
     border-radius: 40px;
     margin:auto;
     position:absolute;
-    padding-top: 0.35em;
+    top:40px;
+    left:80px;
+    padding-top: 20px;
     padding-bottom: 0.2em;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
+    padding-left: 30px;
+    padding-right: 30px;
   }
     
   .hr{
@@ -163,9 +170,19 @@ nav#menu-superior ul li {
     text-align: center;
   ;
   }
-  h2.whiteColor{
-    color:#fff;
-    padding-left: 50px;
+  h2.success{
+    color:rgb(107, 182, 111);
+    position: relative;
+    left: 20px;
+    bottom: 40px;
+
+  }
+  h2.success2{
+    color:rgb(107, 182, 111);
+    position: relative;
+    left: 20px;
+    bottom: 5px;
+
   }
   h2.blackColor{
       color:#000;

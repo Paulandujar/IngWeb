@@ -26,7 +26,7 @@
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for msg in messages %}
-                    <h2 class="blackColor">{{msg}}</h2>
+                    <h2 class="success">{{msg}}</h2>
                 {% endfor %}
             {%endif %}
         {% endwith %}
@@ -50,7 +50,7 @@
                     <input type="text" id="hab" name="hab" size="10" value="{{pedido.numHabitacion}}">
                     </div>
                     <div class="form-group row">
-                    <label for="formGroupExampleInput2" >Estado: {{pedido.estado}}</label>
+                    <label for="formGroupExampleInput2" >Estado: </label>
                     <input type="text" id="estado" name="estado" size="10" value="{{pedido.estado}}" readonly>
                     </div>
                     <div class="form-group row">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="form-group row">
                     <label for="formGroupExampleInput2" >ID Medicamento:</label>
-                    <input type="text" id="idmedicamento" name="idmedicamento" size="10" value="{{pedido.idmedicamento}}" readonly>
+                    <input type="text" id="idmedicamento" name="idmedicamento" size="10" value="{{pedido.IDmedicamento}}" readonly>
                     </div>
                     <div class="form-group row">
                         <label for="formGroupExampleInput2" >Estado: </label>

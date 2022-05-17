@@ -98,10 +98,12 @@
       position:absolute;
       padding:90px 70px 50px 70px;
       background: #82AC9F;
+
+
   }
   .login-html .sign-in-htm,
   .login-html .sign-up-htm{
-      top:0;
+      top:20px;
       left:0;
       right:0;
       bottom:0;
@@ -119,6 +121,7 @@
   .login-form .group .label,
   .login-form .group .button{
       text-transform:uppercase;
+      padding-top: 10px;
   }
   .login-html .tab{
       font-size:22px;
@@ -145,18 +148,7 @@
   .login-form .group{
       margin-bottom:15px;
   }
-  .login-form .group-x .label,
-  .login-form .group-x .input,
-  .login-form .group-x .button{
-      width:100%;
-      color:#fff;
-      display:block;
-      border:none;
-      padding:15px 20px;
-      border-radius:25px;
-      background:rgba(255, 255, 255, 0.1);
-      font-size:12px;
-  }
+
   .login-form .group .label,
   .login-form .group .input,
   .login-form .group .button{
@@ -178,10 +170,7 @@
       color:rgb(254, 254, 254);
       font-size:12px;
   }
-  .login-form .group-x .label{
-    color:rgb(254, 254, 254);
-    font-size:12px;
-}
+
   .login-form .group .button{
       background:#767C7F;
   }

@@ -26,7 +26,7 @@
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for msg in messages %}
-                    <h2 class="blackColor">{{msg}}</h2>
+                    <h2 class="success">{{msg}}</h2>
                 {% endfor %}
             {%endif %}
         {% endwith %}
@@ -39,25 +39,25 @@
             </div>
             <div class="form-group row"> 
               <label for="formGroupExampleInput2" >Dni Paciente:</label>
-              <input type="text" id="paciente" name="paciente" required minlength="4" size="15">
+              <input type="text" id="paciente" name="paciente" required>
             </div>
             <div class="form-group row">
               <label for="formGroupExampleInput2" >Número de habitación:</label>
-              <input type="text" id="hab" name="hab" required minlength="4" size="10">
+              <input type="text" id="hab" name="hab" required>
             </div>
 
             <div class="form-group row">
-                <select style="width:50%;" class="form-control" id="inlineFormCustomSelectPref" name="idmedicamento" required>
-                 <label for="formGroupExampleInput2" >Medicamento:</label>
-                 <option selected>Elija el medicamento:</option>
-                 {%for medicamento in medicamentos%}
-                <option value="{{medicamento.ID}}">{{medicamento.nombre}}</option>
-                {%endfor%}
+                <label for="formGroupExampleInput2" >Medicamento:</label>
+                <select style="width:50%;" class="form-control" id="idmedicamento" name="idmedicamento" required>
+                    <option value="" selected disabled hidden>Elija un medicamento:</option>
+                    {%for medicamento in medicamentos%}
+                        <option value="{{medicamento.ID}}">{{medicamento.nombre}}</option>
+                    {%endfor%}
                 </select>
             </div>
               
             <div>
-                <input type="submit" formmethod="post" onclick="location.href='/listadoPedidos';" class="btn btn-info"  value="Añadir">
+                <input type="submit" formmethod="post" class="btn btn-info"  value="Añadir">
             
             </div>
             {%endif%}

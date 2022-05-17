@@ -120,19 +120,21 @@ def hacerPedido():
     restado="Pendiente"
     try:
         hacerPedido=pedido(dniPaciente=rdniPaciente,numHabitacion=rnumhab,IDmedicamento=rIDmed,IDusuario=rIDusuario, estado=restado)
+        med = medicamento.query.all()
         db.session.add(hacerPedido)
         db.session.commit()
         flash("Pedido registrado correctamente!")
-        return redirect('/listadoPedidos.html')
+        return render_template('hacerPedido.html', medicamentos = med)
     except:
-        "Algo ha ido mal!!"
+        flash("Algo ha ido mal!!")
+        return render_template('hacerPedido.html', medicamentos = med)
 
 @app.route('/listadoPedidos')
 def verListadoPedidos():
     all_pedidos=pedido.query.all()
     return render_template('listadoPedidos.html',pedidos=all_pedidos)
 
-@app.route('/listadoPedidos/<ID>' , methods=['GET'])
+@app.route('/actualizarPedido/<ID>' , methods=['GET'])
 def get(ID):
     rpedido=pedido.query.filter_by(numPedido=ID)
     med=medicamento.query.all()
@@ -145,7 +147,7 @@ def getact():
     med=medicamento.query.all()
     return render_template('actualizarPedido.html',medicamentos=med)
 
-@app.route('/listadoPedidos/<ID>', methods=['POST'])
+@app.route('/actualizarPedido/<ID>', methods=['POST'])
 def actualizarP(ID):
     if g.user==None:
         return redirect('/login')
@@ -158,9 +160,12 @@ def actualizarP(ID):
     try:
         db.session.commit()
         flash("Pedido actualizado correctamente!")
-        return render_template('actualizarPedido.html')
+        rpedido=pedido.query.filter_by(numPedido=ID)
+        med=medicamento.query.all()
+        return render_template('actualizarPedido.html',pedidos=rpedido,medicamentos=med)
     except:
-        "Algo ha ido mal!!"
+        flash("Algo ha ido mal!!")
+        return render_template('actualizarPedido.html')
     
 @app.route('/borrarPedido/<ID>')
 def borrarpedido(ID):
@@ -170,10 +175,12 @@ def borrarpedido(ID):
     try:
         db.session.delete(borrarP)
         db.session.commit()
-        flash("El pedido ha sido eliminado correctamente!") 
-        return render_template('listadoPedidos.html')
+        ped = pedido.query.all()
+        flash("El pedido ha sido eliminado correctamente") 
+        return render_template('listadoPedidos.html', pedidos = ped)
     except: 
-        return "Algo ha ido mal!"
+        flash("Algo ha ido mal!!")
+        return render_template('listadoPedidos.html', pedidos = ped)
 
 @app.route('/nuevoMedicamento' , methods=['GET'])
 def addmed():
@@ -199,7 +206,8 @@ def nuevoMed():
         flash("Medicamento registrado correctamente!")
         return render_template('nuevoMedicamento.html')
     except:
-        "Algo ha ido mal!!"
+        flash("Algo ha ido mal!!")
+        return render_template('nuevoMedicamento.html')
 
 @app.route('/actualizarMedicamento/<ID>' , methods=['GET'])
 def actmedget(ID):
@@ -223,9 +231,11 @@ def actMed(ID):
     try:
         db.session.commit()
         flash("Medicamento actualizado correctamente!")
-        return render_template('actualizarMedicamento.html')
+        med=medicamento.query.filter_by(ID=ID)
+        return render_template('actualizarMedicamento.html', medicamentos=med)
     except:
-        "Algo ha ido mal!!"
+        flash("Algo ha ido mal!!")
+        return render_template('actualizarMedicamento.html')
     
 @app.route('/datosUsuario/<ID>' , methods=['GET'])
 def datos(ID):
@@ -250,7 +260,8 @@ def actUsu(ID):
         flash("Usuario actualizado correctamente!")
         return render_template('datosUsuario.html')
     except:
-        "Algo ha ido mal!!"
+        flash("Algo ha ido mal!!")
+        return render_template('datosUsuario.html')
 
 
 if __name__ == '__main__':
